@@ -5,6 +5,7 @@ import discord
 from discord.ext import commands
 from time import sleep
 import asyncio
+import random
 
 class Skill():
     INT = 1
@@ -54,14 +55,14 @@ class Hero(Skill):
     def __init__(self):
         self.HP = 100
         self.DEF = 1
-        self.STR = 5
-        self.INT = 5
+        self.STR = random.randint(1,9)
+        self.INT = 10-self.STR
 
     def reset(self):
         self.HP = 100
         self.DEF = 1
-        self.STR = 5
-        self.INT = 5
+        self.STR = random.randint(1,9)
+        self.INT = 10-self.STR
 
 man = Hero()
 dragon = Boss()
@@ -80,6 +81,14 @@ class MiniRPG(commands.Cog, name='MiniRPG'):
 
         #embed = discord.Embed(title='원하는 스킬을 선택하세요', description='?', color=0x147AF3)
         #message = await ctx.send(embed=embed)
+        await ctx.send('스탯이 랜덤하게 결정됩니다.')
+        sleep(1)
+        embed = discord.Embed(title='유저 스탯')
+        embed.add_field(name='STR', value='\n'.join([str(man.STR)]), inline=True)
+        embed.add_field(name='INT', value='\n'.join([str(man.INT)]), inline=True)
+        await ctx.send(embed=embed)
+        sleep(1)
+
         embed = discord.Embed(description='\"1번째 당신의 턴\"')
         await ctx.send(embed=embed)
 
